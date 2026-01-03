@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using StudentManagementApi.Data;
+using StudentManagementApi.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +24,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.MapOpenApi();
 }
-
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseHttpsRedirection();
 app.MapGet("/", () => "Student Management API is running");
 app.MapControllers();
