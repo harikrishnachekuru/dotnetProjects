@@ -18,6 +18,7 @@ namespace StudentManagementApi.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -25,6 +26,7 @@ namespace StudentManagementApi.Controllers
             return Ok(students);
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -38,7 +40,7 @@ namespace StudentManagementApi.Controllers
             return Ok(student);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateData(Students student)
         {
@@ -48,7 +50,7 @@ namespace StudentManagementApi.Controllers
             return CreatedAtAction(nameof(CreateData), new {id = student.Id}, student);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, Students student)
         {
@@ -61,7 +63,7 @@ namespace StudentManagementApi.Controllers
             return NoContent();
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
