@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using StudentManagementApi.Models;
 using StudentManagementApi.Data;
@@ -37,6 +38,7 @@ namespace StudentManagementApi.Controllers
             return Ok(student);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateData(Students student)
         {
@@ -46,6 +48,7 @@ namespace StudentManagementApi.Controllers
             return CreatedAtAction(nameof(CreateData), new {id = student.Id}, student);
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, Students student)
         {
@@ -58,6 +61,7 @@ namespace StudentManagementApi.Controllers
             return NoContent();
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
